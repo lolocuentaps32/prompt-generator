@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Generador de Prompt — Garabato → Realismo</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <noscript>
+    <style>.noscript{background:#fee2e2;color:#7f1d1d;padding:12px;border-radius:8px;margin:10px}</style>
+    <div class="noscript">Necesitas activar JavaScript para usar esta herramienta.</div>
+  </noscript>
+</head>
+<body>
+<header class="topbar" role="banner">
+  <div class="brand">
+    <div class="logo" aria-hidden="true"></div>
+    <div class="titles">
+      <h1>Generador de Prompt — Garabato → Realismo</h1>
+      <p class="lead">Selecciona variables. Si eliges “No seleccionar nada”, esa sección no se añade al prompt.</p>
+    </div>
+  </div>
+  <div class="controls">
+    <label for="themeSelect" class="theme-label">Tema</label>
+    <select id="themeSelect" class="input" aria-label="Selector de tema">
+      <option value="auto">Auto (sistema)</option>
+      <option value="light">Claro</option>
+      <option value="dark">Oscuro</option>
+    </select>
+  </div>
+</header>
+
+<main class="layout" role="main">
+  <section class="content" aria-label="Constructor de prompt">
+    <div class="grid">
+      <!-- 1. Resultado -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Tipo de resultado</div>
+          <span class="badge">Salida</span>
+        </div>
+        <div class="hint">Formato general del render o foto final.</div>
+        <div class="chips" data-group="resultado" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="fotorrealista">Fotorrealista</button>
+          <button type="button" class="chip" data-value="render 3D realista">Render 3D realista</button>
+          <button type="button" class="chip" data-value="ilustración hiperrealista">Ilustración hiperrealista</button>
+          <button type="button" class="chip" data-value="stop-motion digital">Stop-motion digital</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Nivel de realismo</div>
+          <span class="badge">Fidelidad</span>
+        </div>
+        <div class="hint">Cuán “real” debe sentirse el resultado.</div>
+        <div class="chips" data-group="realismo" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="hiperrealista">Hiperrealista</button>
+          <button type="button" class="chip" data-value="ultrarealista">Ultrarealista</button>
+          <button type="button" class="chip" data-value="cuasi-fotográfico">Cuasi-fotográfico</button>
+        </div>
+      </div>
+
+      <!-- 2. Materiales / Texturas -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Texturas principales (multi)</div>
+          <span class="badge">Material</span>
+        </div>
+        <div class="hint">Material dominante del objeto/personaje.</div>
+        <div class="chips" data-group="texturas" data-type="multi">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="piel">Piel</button>
+          <button type="button" class="chip" data-value="pelaje">Pelaje</button>
+          <button type="button" class="chip" data-value="metal">Metal</button>
+          <button type="button" class="chip" data-value="madera">Madera</button>
+          <button type="button" class="chip" data-value="piedra">Piedra</button>
+          <button type="button" class="chip" data-value="cerámica">Cerámica</button>
+          <button type="button" class="chip" data-value="plástico">Plástico</button>
+          <button type="button" class="chip" data-value="vidrio">Vidrio</button>
+          <button type="button" class="chip" data-value="textil">Textil</button>
+          <button type="button" class="chip" data-value="goma">Goma</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Materiales secundarios (multi)</div>
+          <span class="badge">Material</span>
+        </div>
+        <div class="hint">Acentos o piezas parciales.</div>
+        <div class="chips" data-group="materiales" data-type="multi">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="oxidación leve">Oxidación leve</button>
+          <button type="button" class="chip" data-value="desgaste natural">Desgaste natural</button>
+          <button type="button" class="chip" data-value="microarañazos">Microarañazos</button>
+          <button type="button" class="chip" data-value="acabado mate">Acabado mate</button>
+          <button type="button" class="chip" data-value="acabado satinado">Acabado satinado</button>
+          <button type="button" class="chip" data-value="acabado brillante">Acabado brillante</button>
+        </div>
+      </div>
+
+      <!-- 3. Iluminación -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Tipo de iluminación</div>
+          <span class="badge">Luz</span>
+        </div>
+        <div class="hint">Carácter de la luz principal.</div>
+        <div class="chips" data-group="iluminacion" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="natural">Natural</button>
+          <button type="button" class="chip" data-value="de estudio">De estudio</button>
+          <button type="button" class="chip" data-value="dramática">Dramática</button>
+          <button type="button" class="chip" data-value="atardecer">Atardecer</button>
+          <button type="button" class="chip" data-value="nocturna suave">Nocturna suave</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Esquema de iluminación</div>
+          <span class="badge">Luz</span>
+        </div>
+        <div class="hint">Configuración fotográfica.</div>
+        <div class="chips" data-group="esquema" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="Rembrandt">Rembrandt</button>
+          <button type="button" class="chip" data-value="luz lateral dura">Luz lateral dura</button>
+          <button type="button" class="chip" data-value="luz suave frontal">Luz suave frontal</button>
+          <button type="button" class="chip" data-value="contra luz">Contra luz</button>
+          <button type="button" class="chip" data-value="tres puntos">Tres puntos</button>
+        </div>
+      </div>
+
+      <!-- 4. Cámara / Composición -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Longitud focal</div>
+          <span class="badge">Cámara</span>
+        </div>
+        <div class="hint">Afecta perspectiva y compresión.</div>
+        <div class="chips" data-group="focal" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="35mm">35mm</button>
+          <button type="button" class="chip" data-value="50mm">50mm</button>
+          <button type="button" class="chip" data-value="85mm">85mm</button>
+          <button type="button" class="chip" data-value="105mm macro">105mm macro</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Plano / Encuadre</div>
+          <span class="badge">Cámara</span>
+        </div>
+        <div class="hint">Cuánta porción del sujeto se ve.</div>
+        <div class="chips" data-group="plano" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="full-body view">Cuerpo entero</button>
+          <button type="button" class="chip" data-value="plano medio">Plano medio</button>
+          <button type="button" class="chip" data-value="primer plano">Primer plano</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Ángulo de cámara</div>
+          <span class="badge">Cámara</span>
+        </div>
+        <div class="hint">Punto de vista dominante.</div>
+        <div class="chips" data-group="angulo" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="a nivel de ojos">A nivel de ojos</button>
+          <button type="button" class="chip" data-value="picado suave">Picado suave</button>
+          <button type="button" class="chip" data-value="contrapicado suave">Contrapicado suave</button>
+          <button type="button" class="chip" data-value="tres cuartos">Tres cuartos</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Composición</div>
+          <span class="badge">Arte</span>
+        </div>
+        <div class="hint">Reglas y orden visual.</div>
+        <div class="chips" data-group="composicion" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="regla de los tercios">Regla de los tercios</button>
+          <button type="button" class="chip" data-value="centrada">Centrada</button>
+          <button type="button" class="chip" data-value="simetría">Simetría</button>
+          <button type="button" class="chip" data-value="líneas guía">Líneas guía</button>
+        </div>
+      </div>
+
+      <!-- 5. Entorno / Fondo -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Entorno</div>
+          <span class="badge">Escena</span>
+        </div>
+        <div class="hint">Lugar donde “existe” el sujeto.</div>
+        <div class="chips" data-group="entorno" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="exterior natural">Exterior natural</button>
+          <button type="button" class="chip" data-value="habitación">Habitación</button>
+          <button type="button" class="chip" data-value="fondo neutro">Fondo neutro</button>
+          <button type="button" class="chip" data-value="paisaje urbano">Paisaje urbano</button>
+          <button type="button" class="chip" data-value="set de estudio">Set de estudio</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Profundidad de campo</div>
+          <span class="badge">Óptica</span>
+        </div>
+        <div class="hint">Relación nitidez / desenfoque.</div>
+        <div class="chips" data-group="dof" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="bokeh pronunciado">Bokeh pronunciado</button>
+          <button type="button" class="chip" data-value="profundidad media">Profundidad media</button>
+          <button type="button" class="chip" data-value="todo en foco">Todo en foco</button>
+        </div>
+      </div>
+
+      <!-- 6. Técnicas de render y post -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Técnicas de render (multi)</div>
+          <span class="badge">Render</span>
+        </div>
+        <div class="hint">Motores y fenómenos físicos simulados.</div>
+        <div class="chips" data-group="tecnicas" data-type="multi">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="PBR">PBR</button>
+          <button type="button" class="chip" data-value="iluminación global">Iluminación global</button>
+          <button type="button" class="chip" data-value="subsurface scattering">Subsurface scattering</button>
+          <button type="button" class="chip" data-value="ray tracing">Ray tracing</button>
+          <button type="button" class="chip" data-value="volumetric lighting">Volumetric lighting</button>
+          <button type="button" class="chip" data-value="ambient occlusion">Ambient occlusion</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Post-procesado (multi)</div>
+          <span class="badge">Post</span>
+        </div>
+        <div class="hint">Ajustes finales.</div>
+        <div class="chips" data-group="post" data-type="multi">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="color grading cinematográfico">Color grading cinematográfico</button>
+          <button type="button" class="chip" data-value="nitidez controlada">Nitidez controlada</button>
+          <button type="button" class="chip" data-value="grano sutil">Grano sutil</button>
+          <button type="button" class="chip" data-value="bloom moderado">Bloom moderado</button>
+          <button type="button" class="chip" data-value="viñeteo suave">Viñeteo suave</button>
+        </div>
+      </div>
+
+      <!-- 7. Estilo / Representación -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Estilo visual</div>
+          <span class="badge">Arte</span>
+        </div>
+        <div class="hint">Dirección artística general.</div>
+        <div class="chips" data-group="estilo" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="cinematográfico">Cinematográfico</button>
+          <button type="button" class="chip" data-value="publicitario">Publicitario</button>
+          <button type="button" class="chip" data-value="retrato editorial">Retrato editorial</button>
+          <button type="button" class="chip" data-value="documental">Documental</button>
+        </div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Tipo de representación final</div>
+          <span class="badge">Salida</span>
+        </div>
+        <div class="hint">Cómo debe “parecer” el resultado.</div>
+        <div class="chips" data-group="representacion" data-type="single">
+          <button type="button" class="chip outline active" data-value="">No seleccionar nada</button>
+          <button type="button" class="chip" data-value="fotografía">Fotografía</button>
+          <button type="button" class="chip" data-value="render CGI">Render CGI</button>
+          <button type="button" class="chip" data-value="frame de película">Frame de película</button>
+        </div>
+      </div>
+
+      <!-- 8. Parámetros -->
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Relación de aspecto</div>
+          <span class="badge">Parámetro</span>
+        </div>
+        <div class="twocol">
+          <input id="ar" class="input" placeholder="Ej.: 3:4 o 16:9" inputmode="text" aria-label="Relación de aspecto">
+          <select id="arPreset" class="input" aria-label="Relación de aspecto (preselección)">
+            <option value="">No seleccionar nada</option>
+            <option>1:1</option><option>3:4</option><option>4:3</option><option>16:9</option><option>9:16</option>
+          </select>
+        </div>
+        <div class="note">Si eliges “No seleccionar nada”, no se añade <code>--ar</code> al prompt.</div>
+      </div>
+
+      <div class="card span6">
+        <div class="head">
+          <div class="title">Versión / Calidad</div>
+          <span class="badge">Parámetro</span>
+        </div>
+        <div class="twocol">
+          <input id="versionModelo" class="input" placeholder="Versión del modelo (p.ej. 6)" inputmode="numeric" aria-label="Versión del modelo">
+          <input id="calidad" class="input" placeholder="Calidad (p.ej. 2)" inputmode="numeric" aria-label="Calidad">
+        </div>
+        <div class="note">Campos vacíos ⇒ no se añaden <code>--v</code> ni <code>--q</code>.</div>
+      </div>
+
+      <!-- Preview -->
+      <div class="card" id="live">
+        <div class="head">
+          <div class="title">Vista previa rápida</div>
+          <span class="pill">Se actualiza al confirmar</span>
+        </div>
+        <div class="preview" id="preview" aria-live="polite">El prompt aparecerá aquí tras confirmar.</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn ghost" id="resetBtn" type="button">Reiniciar</button>
+      <button class="btn secondary" id="borradorBtn" type="button">Generar borrador</button>
+      <button class="btn primary" id="confirmBtn" type="button">Confirmar y ver prompt</button>
+    </div>
+  </section>
+
+  <aside class="sidebar" id="historyPanel" aria-label="Historial de prompts">
+    <div class="sidehead">
+      <h3>Historial</h3>
+      <button class="btn tiny clear" id="clearHistoryBtn" type="button">Vaciar</button>
+    </div>
+    <div class="history-list" id="historyList">
+      <div class="muted">No hay prompts todavía.</div>
+    </div>
+  </aside>
+</main>
+
+<!-- Modal -->
+<div class="backdrop" id="backdrop"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="sheet">
+    <h3 id="modalTitle">Prompt generado</h3>
+    <div class="divider"></div>
+    <div class="preview" id="promptFinal"></div>
+    <div class="row-end">
+      <button class="btn secondary" id="copyBtn" type="button">Copiar</button>
+      <button class="btn secondary" id="shareBtn" type="button">Compartir</button>
+      <button class="btn secondary" id="exportBtn" type="button">Exportar .txt</button>
+      <button class="btn primary" id="closeBtn" type="button">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
